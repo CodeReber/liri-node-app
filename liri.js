@@ -1,9 +1,15 @@
 require("dotenv").config();
 var keys = require("./keys.js");
-// var spotify = new Spotify(keys.spotify);
+var Spotify = require('node-spotify-api');
+var spotify = new Spotify(keys.spotify);
+
+
+// require("dotenv").config();
+// var keys = require("./keys.js");
+// // var spotify = new Spotify(keys.spotify);
 
 var axios = require("axios");
-var spotifyreq = require("node-spotify-api");
+// var spotifyreq = require("node-spotify-api");
 var fs = require("fs");
 
 var dowhatthis = function (){
@@ -12,23 +18,38 @@ var dowhatthis = function (){
           return console.log(err);
         }
     var output = data.split(",");
-    for (var i = 0; i < output.length; i++) {
+    var song = output[1];
+    spotify
+    .search({ type: 'track', query: song })
+    .then(function(response) {
+            var song = response.tracks.items
+            for(var i = 0; i < 1; i++){
+                console.log("Artist Name: " +song[i].album.artists[0].name+ "\n" + "Album Name: " +song[i].album.name+ "\n" + "Song Name: " +song[i].name+ "\n"+ "Song Preview link: " +song[i].preview_url);
+            }
+        }
+    ); 
+    
 
-        // Print each element (item) of the array/
-        console.log(output[i]);
-      }
+
+
+
     });
 }
 
-// var spotifythis = function () {
-//     var song = process.argv[3];
-//     var spotify = new spotifyreq(keys,spotify);
-//     spotify
-//       .search({ type: 'track', query: song })
-//       .then(function(response) {
-//         console.log(response);
-//       })
-// }
+
+var spotifythis = function () {
+    var song = (process.argv[3]) ? process.argv[3] : "Ace of Base";
+    // var song = process.argv[3];
+    spotify
+      .search({ type: 'track', query: song })
+      .then(function(response) {
+              var song = response.tracks.items
+              for(var i = 0; i < 1; i++){
+                  console.log("Artist Name: " +song[i].album.artists[0].name+ "\n" + "Album Name: " +song[i].album.name+ "\n" + "Song Name: " +song[i].name+ "\n"+ "Song Preview link: " +song[i].preview_url);
+              }
+          }
+      );
+}
 
 
 var concertthis = function () {
@@ -42,7 +63,7 @@ var concertthis = function () {
         function (response) {
             var bands = response.data
             for(var i = 0; i < 1; i++){
-                console.log("Venue Name: " + bands[i].venue.name + "\n" + "Venue City and State: " + bands[i].venue.city + "," + bands[i].venue.region + "\n" + "Event Date: " + bands[i].datetime);
+                console.log("Venue Name: " + bands[i].venue.name + "\n" + "Venue City and State: " + bands[i].venue.city + "," + bands[i].venue.region + "\n" + "Event Date: " + bands[i].datetime+"\n"+ "Song Preview link: " +song[i].preview_url);
             }
         }
     );
@@ -85,6 +106,7 @@ if(process.argv[2] === "spotify-this-song"){
 if(process.argv[2] === "do-what-it-says"){
     dowhatthis ();
 }
+
 // else {
 //     console.log("input one of the follow:")
 //     console.log("concert-this")
