@@ -2,6 +2,7 @@ require("dotenv").config();
 var keys = require("./keys.js");
 var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
+var moment = require('moment');
 
 
 // require("dotenv").config();
@@ -63,7 +64,7 @@ var concertthis = function () {
         function (response) {
             var bands = response.data
             for(var i = 0; i < 1; i++){
-                console.log("Venue Name: " + bands[i].venue.name + "\n" + "Venue City and State: " + bands[i].venue.city + "," + bands[i].venue.region + "\n" + "Event Date: " + bands[i].datetime+"\n"+ "Song Preview link: " +song[i].preview_url);
+                console.log("Venue Name: " + bands[i].venue.name + "\n" + "Venue City and State: " + bands[i].venue.city + "," + bands[i].venue.region + "\n" + "Event Date: " + moment(bands[i].datetime).format('LL'));
             }
         }
     );
