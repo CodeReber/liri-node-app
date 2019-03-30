@@ -1,0 +1,2 @@
+ clientid = f83e62d41561486daad33314fba72bcd
+ clientsec = a1820df138274d1a878819b78d32af8
