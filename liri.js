@@ -108,10 +108,4 @@ if(process.argv[2] === "do-what-it-says"){
     dowhatthis ();
 }
 
-// else {
-//     console.log("input one of the follow:")
-//     console.log("concert-this")
-//     console.log("spotify-this-song")
-//     console.log("movie-this")
-//     console.log("do-what-it-says")
-// }
+
